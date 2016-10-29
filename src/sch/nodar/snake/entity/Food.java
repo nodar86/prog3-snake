@@ -1,4 +1,7 @@
-package sch.nodar.snake;
+package sch.nodar.snake.entity;
+
+import sch.nodar.snake.Level;
+import sch.nodar.snake.Position;
 
 import java.awt.*;
 
@@ -7,9 +10,13 @@ public class Food extends Entity {
         super(level, x, y);
     }
 
+    public Food(Level level, Position position){
+        super(level, position);
+    }
+
     @Override
     public String getName() {
-        return "F";
+        return "food";
     }
 
     @Override

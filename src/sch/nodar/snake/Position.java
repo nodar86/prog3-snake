@@ -4,12 +4,16 @@ public class Position {
     public int x;
     public int y;
 
-    Position(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    Position(){
+    public Position clone(){
+        return new Position(x, y);
+    }
+
+   public Position(){
         x = 0;
         y = 0;
     }

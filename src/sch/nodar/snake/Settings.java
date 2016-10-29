@@ -1,7 +1,7 @@
 package sch.nodar.snake;
 
 public class Settings {
-    int tickTime;
+    public int tickTime;
 
     public Settings(int tickTime) {
         this.tickTime = tickTime;

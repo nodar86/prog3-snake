@@ -1,8 +1,13 @@
 package sch.nodar.snake;
 
+import sch.nodar.snake.Level;
+import sch.nodar.snake.Settings;
+import sch.nodar.snake.entity.Snake;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 import static java.lang.Thread.sleep;
 
@@ -19,15 +24,19 @@ public class Game extends Canvas implements KeyListener {
     private boolean playing;
 
     @Override
-    public void paint(Graphics graphics){
-        Graphics2D graphics2D = (Graphics2D) graphics;
+    public void update(Graphics graphics){
+        Image img = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics2D = (Graphics2D) img.getGraphics();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.fillRect(0, 0, img.getWidth(null), img.getHeight(null));
         level.draw(graphics2D);
+        graphics.drawImage(img, 0, 0, null);
     }
 
     public Game(){
         level = new Level(SCREEN_WIDTH, SCREEN_HEIGHT);
-        settings = new Settings(1000);
+        settings = new Settings(250);
 
         snake = new Snake(level);
 
@@ -42,10 +51,11 @@ public class Game extends Canvas implements KeyListener {
 
     public void play() throws InterruptedException{
         playing = true;
+        level.addFood();
         while(playing){
+            sleep(settings.tickTime);
             snake.tick();
             this.repaint();
-            sleep(settings.tickTime);
         }
     }
 

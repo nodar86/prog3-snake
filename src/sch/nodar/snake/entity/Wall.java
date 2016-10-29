@@ -1,4 +1,7 @@
-package sch.nodar.snake;
+package sch.nodar.snake.entity;
+
+import sch.nodar.snake.Level;
+import sch.nodar.snake.entity.Entity;
 
 import java.awt.*;
 
@@ -9,7 +12,7 @@ public class Wall extends Entity {
 
     @Override
     public String getName() {
-        return "W";
+        return "wall";
     }
 
     @Override

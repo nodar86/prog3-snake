@@ -1,8 +1,20 @@
-package sch.nodar.snake;
+package sch.nodar.snake.entity;
+
+import sch.nodar.snake.Level;
+import sch.nodar.snake.Position;
 
 import java.awt.*;
 
-public class SnakeBody extends Entity{
+public class SnakeBody extends Entity {
+
+    public SnakeBody(){
+
+    }
+
+    public SnakeBody(Level level, Position position){
+        super(level, position);
+    }
+
     @Override
     public void tick() {
 
@@ -16,6 +28,6 @@ public class SnakeBody extends Entity{
 
     @Override
     public String getName() {
-        return "B";
+        return "body";
     }
 }

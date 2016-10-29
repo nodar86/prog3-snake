@@ -1,5 +1,7 @@
 package sch.nodar.snake;
 
+import sch.nodar.snake.entity.*;
+
 import java.awt.*;
 
 public class Level implements Drawable {
@@ -22,9 +24,12 @@ public class Level implements Drawable {
         levelData = new Entity[width][height];
         for(int i = 0; i < width; ++i){
             for(int j = 0; j < height; ++j){
-                levelData[i][j] = new NullEntity(this, i * tileWidth, j * tileHeight);
+                levelData[i][j] = new Null(this, i, j);
             }
         }
+
+        levelData[5][5] = new Wall(this, 5, 5);
+        levelData[5][6] = new Wall(this, 5, 6);
     }
 
     public Level(String filename){
@@ -34,6 +39,7 @@ public class Level implements Drawable {
     }
 
     public void registerEntity(Entity entity){
+//        System.out.println("registering entity " + entity.getName() + " at: " + entity.getPosition().x + " " + entity.getPosition().y);
         levelData[entity.getPosition().x][entity.getPosition().y] = entity;
     }
 
@@ -59,6 +65,19 @@ public class Level implements Drawable {
 
     public int getTileHeight(){
         return tileHeight;
+    }
+
+    public Position getFreePosition(){
+        Position position = new Position();
+        do{
+            position.x = (int)(Math.random() * 1000) % width;
+            position.y = (int)(Math.random() * 1000) % height;
+        } while (!(levelData[position.x][position.y] instanceof Null));
+        return position;
+    }
+
+    public void addFood(){
+        Food food = new Food(this, getFreePosition());
     }
 
     @Override
