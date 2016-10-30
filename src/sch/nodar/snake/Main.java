@@ -7,7 +7,15 @@ import java.awt.*;
  * <h1>Programozás alapjai nagy házi feladat</h1>
  * Kígyós játék / Snake.
  *
- * @author Károlyi Péter Márton - XH7OKF
+ * This is actually a full-blown 2D grid-based Game Engine.
+ * It can play any game as long as you provide the correct entities,
+ * that perform the tick-based gamelogic.
+ *
+ * Initial entity setup is done in Game.java I recommend you start from there when
+ * exploring the code, but I will maybe write a guide to allow you to create games
+ * with this. This was made as a school project so it's nothing professional.
+ *
+ * @author Károlyi Péter Márton
  */
 public class Main {
 
@@ -19,7 +27,7 @@ public class Main {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        JFrame mainFrame = new JFrame("Snake - XH7OKF");
+        JFrame mainFrame = new JFrame("Snake");
 
         mainFrame.setLayout(new BorderLayout());
 

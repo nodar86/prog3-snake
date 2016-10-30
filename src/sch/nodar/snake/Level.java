@@ -1,10 +1,8 @@
 package sch.nodar.snake;
 
-import jdk.nashorn.internal.parser.JSONParser;
 import sch.nodar.snake.entity.*;
 
 import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Level {
 
-    private static final int DEFAULT_WIDTH = 30;
+    private static final int DEFAULT_WIDTH = 40;
     private static final int DEFAULT_HEIGHT = 30;
 
     private Entity[][] levelData;
@@ -47,7 +45,7 @@ public class Level {
             }
         }
 
-        registerEntity(new WallEntity(this, 5, 5));
+        new WallEntity(this, 5, 5);
     }
 
     /**
