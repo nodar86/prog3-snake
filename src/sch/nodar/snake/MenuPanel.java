@@ -14,6 +14,8 @@ public class MenuPanel extends JPanel {
         public void actionPerformed(ActionEvent actionEvent){
             switch (actionEvent.getActionCommand()){
                 case "play":
+                    // TODO This somehow breaks everything. The game loop runs but the window freezes.
+                    Main.playGame();
                     break;
                 case "highscore":
                     break;

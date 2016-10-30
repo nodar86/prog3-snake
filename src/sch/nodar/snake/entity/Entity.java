@@ -5,39 +5,35 @@ import sch.nodar.snake.Level;
 import sch.nodar.snake.Position;
 import sch.nodar.snake.Tickable;
 
-public abstract class Entity implements Drawable, Tickable {
+import java.util.function.Predicate;
 
-    protected Position position;
+/**
+ * Abstract superclass for entities.
+ */
+public abstract class Entity {
+
     protected Level level;
 
-    public Entity(){
-        position = new Position();
-    }
-
-    public Entity(Level level, Position position){
+    /**
+     * Constructs a new entity with the given level and position.
+     * It also registers the entity with the level.
+     * @param level The level on which the entity will live.
+     */
+    public Entity(Level level){
         this.level = level;
-        this.position = position;
-        level.registerEntity(this);
     }
 
-    public Entity(Level level, int x, int y){
-        this.level = level;
-        this.position = new Position(x, y);
-        level.registerEntity(this);
-    }
+    /**
+     * Notifies the entity that it has been removed from the level.
+     */
+    public void notifyRemoval() {}
 
-    public Position getPosition(){
-        return position;
-    }
-
-    public Position getDrawPosition(){
-        return new Position(position.x * level.getTileWidth(), position.y * level.getTileHeight());
-    }
-
-    public Level getLevel(){
-        return level;
-    }
-
+    /**
+     * Returns the name of the entity.
+     * This should be a lower-case shorthand for the entity.
+     * The purpose of this is to be able to use entity-type switches.
+     * @return The name of the entity.
+     */
     public abstract String getName();
 
 }
