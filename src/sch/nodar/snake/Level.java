@@ -29,12 +29,8 @@ public class Level {
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
 
-        tileWidth = screenWidth / width;
-        tileHeight = screenHeight / height;
-
-        int minTileSize = Integer.min(tileHeight, tileWidth);
-        tileHeight = minTileSize;
-        tileWidth = minTileSize;
+        int minTileSize = Integer.min(screenWidth / width, screenHeight / height);
+        tileHeight = tileWidth = minTileSize;
 
         levelData = new Entity[width][height];
         drawData = new ArrayList<>();

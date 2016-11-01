@@ -1,9 +1,6 @@
 package sch.nodar.snake;
 
-import sch.nodar.snake.entity.ControllableEntity;
-import sch.nodar.snake.entity.Entity;
-import sch.nodar.snake.entity.FoodFactoryEntity;
-import sch.nodar.snake.entity.SnakeEntity;
+import sch.nodar.snake.entity.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +17,12 @@ import static java.lang.Thread.sleep;
  */
 public class Game extends Canvas implements KeyListener {
 
-    public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 600;
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 600;
     private static final int SNAKE_INITIAL_SIZE = 5;
 
     private Level level;
-    private ArrayList<JPanel> tickablePanels;
-    private ArrayList<Entity> tickableEntities;
+    private ArrayList<Tickable> tickables;
     private ArrayList<ControllableEntity> controllableEntities;
     private Settings settings;
 
@@ -51,8 +47,7 @@ public class Game extends Canvas implements KeyListener {
         level = new Level(SCREEN_WIDTH, SCREEN_HEIGHT);
         settings = new Settings();
 
-        tickablePanels = new ArrayList<>();
-        tickableEntities = new ArrayList<>();
+        tickables = new ArrayList<>();
         controllableEntities = new ArrayList<>();
 
         SnakeEntity snake1 = new SnakeEntity(level, Color.RED, SNAKE_INITIAL_SIZE,
@@ -73,19 +68,20 @@ public class Game extends Canvas implements KeyListener {
 
     private void addEntity(Entity entity){
         if(entity instanceof Tickable)
-            tickableEntities.add(entity);
+            tickables.add((Tickable)entity);
         if(entity instanceof ControllableEntity)
             controllableEntities.add((ControllableEntity)entity);
     }
 
     public void addPanel(JPanel panel){
         if(panel instanceof ScoreboardPanel){
-            for(ControllableEntity controllableEntity: controllableEntities)
-                if(controllableEntity instanceof SnakeEntity)
-                    ((ScoreboardPanel) panel).registerSnake((SnakeEntity)controllableEntity);
+            controllableEntities.forEach( controllableEntity -> {
+                if (controllableEntity instanceof Scorable)
+                    ((ScoreboardPanel) panel).registerScorable((Scorable)controllableEntity);
+            });
         }
         if(panel instanceof Tickable)
-            tickablePanels.add(panel);
+            tickables.add((Tickable)panel);
     }
 
     /**
@@ -107,10 +103,7 @@ public class Game extends Canvas implements KeyListener {
         gameOver = false;
         while(playing){
             sleep(settings.tickTime);
-            for(Entity entity: tickableEntities)
-                ((Tickable)entity).tick();
-            for(JPanel panel: tickablePanels)
-                ((Tickable)panel).tick();
+            tickables.forEach(Tickable::tick);
             this.repaint();
         }
     }
@@ -122,11 +115,11 @@ public class Game extends Canvas implements KeyListener {
         } else {
             for(Entity entity: controllableEntities){
                 ControllableEntity controllableEntity = (ControllableEntity)entity;
-                for(int key: controllableEntity.getKeys()){
-                    if(key == e.getKeyCode()){
+                controllableEntity.getKeys().forEach( key -> {
+                    if (key == e.getKeyCode()) {
                         controllableEntity.keyPressed(e);
                     }
-                }
+                });
             }
         }
     }
