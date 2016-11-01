@@ -14,6 +14,8 @@ public class Level {
     private static final int DEFAULT_WIDTH = 40;
     private static final int DEFAULT_HEIGHT = 30;
 
+    // TODO I think i will get rid of this and just add a positionedentity arraylist and check positions on that. It's wasteful to have a 2D array just to store mostly NullEntities.
+
     private Entity[][] levelData;
     private ArrayList<PositionedEntity> drawData;
     private int width, height;
@@ -41,7 +43,8 @@ public class Level {
             }
         }
 
-        new WallEntity(this, 5, 5);
+        for(int i = 0; i < 5; ++i)
+            new WallEntity(this, getFreePosition());
     }
 
     /**

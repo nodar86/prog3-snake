@@ -25,7 +25,7 @@ public class NullEntity extends PositionedEntity {
      * @param y The y coordinate for the position.
      */
     public NullEntity(Level level, int x, int y) {
-        super(level, x, y);
+        this(level, new Position(x, y));
     }
 
     @Override

@@ -127,7 +127,10 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
     @Override
     public void draw(Graphics graphics){
         graphics.setColor(headColor);
-        graphics.fillOval(getDrawPosition().x, getDrawPosition().y, level.getTileWidth(), level.getTileHeight());
+        if(alive)
+            graphics.fillOval(getDrawPosition().x, getDrawPosition().y, level.getTileWidth(), level.getTileHeight());
+        else
+            graphics.fillRect(getDrawPosition().x, getDrawPosition().y, level.getTileWidth(), level.getTileHeight());
     }
 
     @Override

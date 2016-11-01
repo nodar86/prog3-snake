@@ -16,12 +16,6 @@ public abstract class PositionedEntity extends Entity {
         level.registerEntity(this);
     }
 
-    public PositionedEntity(Level level, int x, int y){
-        super(level);
-        this.position = new Position(x, y);
-        level.registerEntity(this);
-    }
-
     /**
      * Returns the position of the entity.
      * @return The position of the entity.
