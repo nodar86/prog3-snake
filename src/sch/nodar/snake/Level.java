@@ -3,7 +3,9 @@ package sch.nodar.snake;
 import sch.nodar.snake.entity.*;
 
 import java.awt.*;
+import java.io.*;
 import java.util.HashMap;
+import javax.json.*;
 
 /**
  * Class for storing level data.
@@ -14,7 +16,7 @@ public class Level {
     private static final int DEFAULT_WIDTH = 40;
     private static final int DEFAULT_HEIGHT = 30;
 
-    private HashMap<Position, PositionedEntity> levelData;
+    private HashMap<Position, PositionedEntity> levelData = new HashMap<>();
     private int width, height;
     private int tileWidth;
     private int tileHeight;
@@ -30,11 +32,6 @@ public class Level {
 
         int minTileSize = Integer.min(screenWidth / width, screenHeight / height);
         tileHeight = tileWidth = minTileSize;
-
-        levelData = new HashMap<>();
-
-        for(int i = 0; i < 5; ++i)
-            new WallEntity(this, getFreePosition());
     }
 
     /**
@@ -44,13 +41,60 @@ public class Level {
      * @param screenHeight The height of the containing screen.
      */
     public Level(String fileName, int screenWidth, int screenHeight){
+        try {
+            JsonObject levelObject = Json.createReader(new FileInputStream(fileName)).readObject();
+
+            width = levelObject.getInt("width");
+            height = levelObject.getInt("height");
+
+            JsonArray levelArray = levelObject.getJsonArray("data");
+            levelArray.getValuesAs(JsonObject.class).forEach(entityObject -> {
+                if(entityObject.getString("name").equals("wall")) {
+                    int x = entityObject.getInt("x");
+                    int y = entityObject.getInt("y");
+                    if(0 <= x && x < width && 0 <= y && y < height) {
+                        new WallEntity(this, new Position(x, y));
+                    }
+                }
+            });
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        int minTileSize = Integer.min(screenWidth / width, screenHeight / height);
+        tileHeight = tileWidth = minTileSize;
     }
 
     /**
-     * Saves the level to given file.
-     * @param filename The level file.
+     * Saves the level to given file. It overwrites the file!
+     * @param fileName The level file.
      */
-    public void saveLevel(String filename){
+    public void saveLevel(String fileName){
+        JsonObjectBuilder levelObjectBuilder = Json.createObjectBuilder();
+        levelObjectBuilder.add("width", width);
+        levelObjectBuilder.add("height", height);
+
+        JsonArrayBuilder levelArrayBuilder = Json.createArrayBuilder();
+        levelData.forEach((position, positionedEntity) -> {
+            if(positionedEntity instanceof  WallEntity){
+                JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+                jsonObjectBuilder.add("x", position.x).add("y", position.y).add("name", positionedEntity.getName());
+                levelArrayBuilder.add(jsonObjectBuilder.build());
+            }
+        });
+
+        levelObjectBuilder.add("data", levelArrayBuilder);
+
+        try {
+            File outputFile = new File(System.getProperty("user.dir") + File.separator + fileName);
+            while(!outputFile.createNewFile()){
+                outputFile.delete();
+            }
+            JsonWriter jsonWriter = Json.createWriter(new FileOutputStream(outputFile));
+            jsonWriter.writeObject(levelObjectBuilder.build());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -127,7 +171,7 @@ public class Level {
      * Draws all the elements of the level on the given Graphics element.
      * @param graphics The Graphics element.
      */
-    public void drawAll(Graphics graphics) {
+    void drawAll(Graphics graphics) {
         graphics.setColor(Color.WHITE);
         graphics.drawRect(0, 0, width*tileWidth-1, height*tileHeight-1);
         levelData.forEach(((position, positionedEntity) -> {

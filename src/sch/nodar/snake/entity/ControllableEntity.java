@@ -5,10 +5,10 @@ import sch.nodar.snake.Position;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 public abstract class ControllableEntity extends PositionedEntity {
-    LinkedHashMap<String, Integer> keys;
+    HashMap<String, Integer> keys;
 
     /**
      * Constructs a new entity with the given level and position.
@@ -16,19 +16,9 @@ public abstract class ControllableEntity extends PositionedEntity {
      * @param level The level on which the entity will live.
      * @param position The position of the entity.
      */
-    public ControllableEntity(Level level, Position position){
+    ControllableEntity(Level level, Position position){
         super(level, position);
-        this.keys = new LinkedHashMap<>();
-    }
-
-    /**
-     * Constructs an entity with given level and a new position based on coordinates.
-     * @param level The level on which the entity will live.
-     * @param x The x coordinate for the position.
-     * @param y The y coordinate for the position.
-     */
-    public ControllableEntity(Level level, int x, int y){
-        this(level, new Position(x, y));
+        this.keys = new HashMap<>();
     }
 
     /**

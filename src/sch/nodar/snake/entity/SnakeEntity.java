@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * Snake entity. It contains the whole body of the snake.
  */
-public class SnakeEntity extends ControllableEntity implements Drawable, Tickable, Scorable {
+public class SnakeEntity extends ControllableEntity implements Drawable, Tickable, Scoreable {
 
     private Color headColor;
 

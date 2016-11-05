@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Entity food, the snake can eat this to grow.
  */
-public class FoodEntity extends PositionedEntity implements Drawable {
+class FoodEntity extends PositionedEntity implements Drawable {
 
     private FoodFactoryEntity parentFoodFactory;
 
@@ -19,7 +19,7 @@ public class FoodEntity extends PositionedEntity implements Drawable {
      * @param level The level on which the entity will live.
      * @param position The position of the entity.
      */
-    public FoodEntity(Level level, Position position, FoodFactoryEntity parentFoodFactory){
+    FoodEntity(Level level, Position position, FoodFactoryEntity parentFoodFactory){
         super(level, position);
         this.parentFoodFactory = parentFoodFactory;
     }

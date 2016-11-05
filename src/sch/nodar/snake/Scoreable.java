@@ -1,6 +1,6 @@
 package sch.nodar.snake;
 
-public interface Scorable {
+public interface Scoreable {
     int getScore();
     int getID();
 }

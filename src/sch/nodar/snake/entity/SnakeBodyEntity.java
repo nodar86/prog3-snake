@@ -9,14 +9,14 @@ import java.awt.*;
 /**
  * The body entities of the snake.
  */
-public class SnakeBodyEntity extends PositionedEntity implements Drawable {
+class SnakeBodyEntity extends PositionedEntity implements Drawable {
 
     /**
      * Constructs a SnakeBody with given level and a new position based on coordinates.
      * @param level The level on which the entity will live.
      * @param position The position of the entity.
      */
-    public SnakeBodyEntity(Level level, Position position){
+    SnakeBodyEntity(Level level, Position position){
         super(level, position);
     }
 

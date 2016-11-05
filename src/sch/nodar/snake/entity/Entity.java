@@ -1,11 +1,6 @@
 package sch.nodar.snake.entity;
 
-import sch.nodar.snake.Drawable;
 import sch.nodar.snake.Level;
-import sch.nodar.snake.Position;
-import sch.nodar.snake.Tickable;
-
-import java.util.function.Predicate;
 
 /**
  * Abstract superclass for entities.
@@ -19,7 +14,7 @@ public abstract class Entity {
      * It also registers the entity with the level.
      * @param level The level on which the entity will live.
      */
-    public Entity(Level level){
+    Entity(Level level){
         this.level = level;
     }
 

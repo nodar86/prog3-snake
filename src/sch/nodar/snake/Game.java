@@ -43,8 +43,8 @@ public class Game extends Canvas implements KeyListener {
     /**
      * Constructs a new game with default screen size (800x600).
      */
-    public Game(){
-        level = new Level(SCREEN_WIDTH, SCREEN_HEIGHT);
+    Game(){
+        level = new Level("whatever", SCREEN_WIDTH, SCREEN_HEIGHT);
         settings = new Settings();
 
         tickables = new ArrayList<>();
@@ -73,11 +73,11 @@ public class Game extends Canvas implements KeyListener {
             controllableEntities.add((ControllableEntity)entity);
     }
 
-    public void addPanel(JPanel panel){
+    void addPanel(JPanel panel){
         if(panel instanceof ScoreboardPanel){
             controllableEntities.forEach( controllableEntity -> {
-                if (controllableEntity instanceof Scorable)
-                    ((ScoreboardPanel) panel).registerScorable((Scorable)controllableEntity);
+                if (controllableEntity instanceof Scoreable)
+                    ((ScoreboardPanel) panel).registerScoreable((Scoreable)controllableEntity);
             });
         }
         if(panel instanceof Tickable)
@@ -98,7 +98,7 @@ public class Game extends Canvas implements KeyListener {
      * The tickTime is read from the settings.
      * @throws InterruptedException if the sleep is interrupted it throws this. This should not happen.
      */
-    public void play() throws InterruptedException{
+    void play() throws InterruptedException{
         playing = true;
         gameOver = false;
         while(playing){
