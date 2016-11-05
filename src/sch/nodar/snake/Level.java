@@ -3,7 +3,7 @@ package sch.nodar.snake;
 import sch.nodar.snake.entity.*;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class for storing level data.
@@ -14,10 +14,7 @@ public class Level {
     private static final int DEFAULT_WIDTH = 40;
     private static final int DEFAULT_HEIGHT = 30;
 
-    // TODO I think i will get rid of this and just add a positionedentity arraylist and check positions on that. It's wasteful to have a 2D array just to store mostly NullEntities.
-
-    private Entity[][] levelData;
-    private ArrayList<PositionedEntity> drawData;
+    private HashMap<Position, PositionedEntity> levelData;
     private int width, height;
     private int tileWidth;
     private int tileHeight;
@@ -34,14 +31,7 @@ public class Level {
         int minTileSize = Integer.min(screenWidth / width, screenHeight / height);
         tileHeight = tileWidth = minTileSize;
 
-        levelData = new Entity[width][height];
-        drawData = new ArrayList<>();
-
-        for(int i = 0; i < width; ++i){
-            for(int j = 0; j < height; ++j){
-                levelData[i][j] = new NullEntity(this, i, j);
-            }
-        }
+        levelData = new HashMap<>();
 
         for(int i = 0; i < 5; ++i)
             new WallEntity(this, getFreePosition());
@@ -66,23 +56,16 @@ public class Level {
     /**
      * Registers a new entity on the level.
      * It saves the entity to the level layout and if it needs drawing to the rendering data.
-     * @param entity the entity that we register
+     * @param positionedEntity the entity that we register
      */
-    public void registerEntity(Entity entity){
-        if(entity instanceof PositionedEntity) {
-            PositionedEntity positionedEntity = (PositionedEntity)entity;
-            if(levelData[positionedEntity.getPosition().x][positionedEntity.getPosition().y] != null)
-                levelData[positionedEntity.getPosition().x][positionedEntity.getPosition().y].notifyRemoval();
-            levelData[positionedEntity.getPosition().x][positionedEntity.getPosition().y] = entity;
-            for (int i = 0; i < drawData.size(); ++i) {
-                if (drawData.get(i).getPosition().equals(positionedEntity.getPosition())) {
-                    drawData.remove(i);
-                }
-            }
-            if (entity instanceof Drawable) {
-                drawData.add(positionedEntity);
-            }
-        }
+    public void registerEntity(PositionedEntity positionedEntity){
+        if(levelData.containsKey(positionedEntity.getPosition()))
+            levelData.remove(positionedEntity.getPosition()).notifyRemoval();
+        levelData.put(positionedEntity.getPosition(), positionedEntity);
+    }
+
+    public void removeEntity(Position position){
+        levelData.remove(position).getName();
     }
 
     /**
@@ -90,8 +73,8 @@ public class Level {
      * @param position The position of the polled entity.
      * @return The entity at position.
      */
-    public Entity getEntityAt(Position position){
-        return levelData[position.x][position.y];
+    public PositionedEntity getEntityAt(Position position){
+        return levelData.get(position);
     }
 
     /**
@@ -136,7 +119,7 @@ public class Level {
         do{
             position.x = (int)(Math.random() * 1000) % width;
             position.y = (int)(Math.random() * 1000) % height;
-        } while (!(levelData[position.x][position.y] instanceof NullEntity));
+        } while (levelData.containsKey(position));
         return position;
     }
 
@@ -147,8 +130,9 @@ public class Level {
     public void drawAll(Graphics graphics) {
         graphics.setColor(Color.WHITE);
         graphics.drawRect(0, 0, width*tileWidth-1, height*tileHeight-1);
-        for(Entity entity: drawData){
-            ((Drawable)entity).draw(graphics);
-        }
+        levelData.forEach(((position, positionedEntity) -> {
+            if(positionedEntity instanceof Drawable)
+                ((Drawable) positionedEntity).draw(graphics);
+        }));
     }
 }

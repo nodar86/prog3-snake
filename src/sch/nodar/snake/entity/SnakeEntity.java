@@ -53,10 +53,10 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
     /**
      * Moves the snake in it's current direction.
      */
-    public void move(){
+    private void move(){
         body.addFirst(new SnakeBodyEntity(level, position.clone()));
         if(growCount == 0) {
-            new NullEntity(level, body.removeLast().getPosition());
+            level.removeEntity(body.removeLast().getPosition());
         } else {
             growCount--;
         }
@@ -94,16 +94,19 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
      * Check for collision and acts accordingly
      */
     private void checkCollision(){
-        switch (level.getEntityAt(position).getName()){
-            case "food":
-                growCount++;
-                score++;
-                break;
-            case "wall":
-            case "body":
-                alive = false;
-                Main.game.gameOver();
-                break;
+        PositionedEntity collidedEntity = level.getEntityAt(position);
+        if (collidedEntity != null) {
+            switch (collidedEntity.getName()){
+                case "food":
+                    growCount++;
+                    score++;
+                    break;
+                case "wall":
+                case "body":
+                    alive = false;
+                    Main.game.gameOver();
+                    break;
+            }
         }
     }
 

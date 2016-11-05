@@ -54,9 +54,9 @@ public class Game extends Canvas implements KeyListener {
                 KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
         addEntity(snake1);
 
-        SnakeEntity snake2 = new SnakeEntity(level, Color.GREEN, SNAKE_INITIAL_SIZE,
-                KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
-        addEntity(snake2);
+//        SnakeEntity snake2 = new SnakeEntity(level, Color.GREEN, SNAKE_INITIAL_SIZE,
+//                KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
+//        addEntity(snake2);
 
         FoodFactoryEntity foodFactory = new FoodFactoryEntity(level);
         addEntity(foodFactory);

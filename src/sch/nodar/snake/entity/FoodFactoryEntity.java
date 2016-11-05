@@ -6,7 +6,7 @@ import sch.nodar.snake.Tickable;
 /**
  * Entity that generates FoodEntities on the given level
  */
-public class FoodFactoryEntity extends PositionlessEntity implements Tickable {
+public class FoodFactoryEntity extends Entity implements Tickable {
 
     private int foodAmount;
     private static final int MAX_FOOD_AMOUNT = 1;

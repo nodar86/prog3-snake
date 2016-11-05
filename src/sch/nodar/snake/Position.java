@@ -2,6 +2,7 @@ package sch.nodar.snake;
 
 /**
  * Class for storing the positions of entities on the level grid.
+ * Maybe it should be immutable? Perhaps not?
  */
 public class Position {
     public int x;
@@ -36,5 +37,10 @@ public class Position {
             return (this.x == position.x && this.y == position.y);
         } else
             return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return (17 * 31 + x) * 31 + y;
     }
 }
