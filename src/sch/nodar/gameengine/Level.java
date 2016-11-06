@@ -1,6 +1,6 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
-import sch.nodar.snake.entity.*;
+import sch.nodar.gameengine.entity.*;
 
 import java.awt.*;
 import java.io.*;
@@ -171,7 +171,7 @@ public class Level {
      * Draws all the elements of the level on the given Graphics element.
      * @param graphics The Graphics element.
      */
-    void drawAll(Graphics graphics) {
+    public void drawAll(Graphics graphics) {
         graphics.setColor(Color.WHITE);
         graphics.drawRect(0, 0, width*tileWidth-1, height*tileHeight-1);
         levelData.forEach(((position, positionedEntity) -> {

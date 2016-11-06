@@ -1,4 +1,4 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
 /**
  * Enum for storing the direction of stuff.

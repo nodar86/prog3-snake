@@ -1,7 +1,7 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.Level;
-import sch.nodar.snake.Position;
+import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Position;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

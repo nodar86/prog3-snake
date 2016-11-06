@@ -1,4 +1,4 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
 /**
  * Interface for Objects that can tick via the tick() method.

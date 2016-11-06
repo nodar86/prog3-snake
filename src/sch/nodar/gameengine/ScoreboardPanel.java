@@ -1,10 +1,10 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 
- class ScoreboardPanel extends JPanel implements Tickable {
+ public class ScoreboardPanel extends JPanel implements Tickable {
 
     private LinkedHashMap<Scoreable, JLabel> scores;
 
@@ -13,8 +13,8 @@ import java.util.LinkedHashMap;
         scores = new LinkedHashMap<>();
     }
 
-    void registerScoreable(Scoreable scoreable){
-        JLabel jLabel = new JLabel("snake" + scoreable.getID());
+     public void registerScoreable(Scoreable scoreable){
+        JLabel jLabel = new JLabel("gameengine" + scoreable.getID());
         scores.put(scoreable, jLabel);
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -24,6 +24,6 @@ import java.util.LinkedHashMap;
     @Override
     public void tick() {
         scores.forEach((snakeEntity, jLabel) ->
-                jLabel.setText("snake[" + snakeEntity.getID() + "]: " + snakeEntity.getScore()));
+                jLabel.setText("gameengine[" + snakeEntity.getID() + "]: " + snakeEntity.getScore()));
     }
 }

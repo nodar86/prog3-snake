@@ -1,13 +1,13 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.Drawable;
-import sch.nodar.snake.Level;
-import sch.nodar.snake.Position;
+import sch.nodar.gameengine.Drawable;
+import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Position;
 
 import java.awt.*;
 
 /**
- * Entity wall that serves as a barrier in the game.
+ * Entity wall that serves as a barrier in the snakeGame.
  */
 public class WallEntity extends PositionedEntity implements Drawable {
     /**

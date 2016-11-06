@@ -1,4 +1,4 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
 /**
  * Class for storing the positions of entities on the level grid.

@@ -1,13 +1,13 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.*;
+import sch.nodar.gameengine.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 /**
- * Snake entity. It contains the whole body of the snake.
+ * Snake entity. It contains the whole body of the gameengine.
  */
 public class SnakeEntity extends ControllableEntity implements Drawable, Tickable, Scoreable {
 
@@ -21,17 +21,17 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
     private static int nextID = 0;
 
     private int growCount = 0;
-    private boolean moved = true;
+    private boolean hasMove = true;
     private boolean alive = true;
 
     /**
      * Constructs an entity with given level.
      * @param level The level on which the entity will live.
-     * @param headColor The color of the head of this snake.
-     * @param upKey The input on which the snake should go up.
-     * @param downKey The input on which the snake should go down.
-     * @param leftKey The input on which the snake should go left.
-     * @param rightKey The input on which the snake should go right.
+     * @param headColor The color of the head of this gameengine.
+     * @param upKey The input on which the gameengine should go up.
+     * @param downKey The input on which the gameengine should go down.
+     * @param leftKey The input on which the gameengine should go left.
+     * @param rightKey The input on which the gameengine should go right.
      */
     public SnakeEntity(Level level, Color headColor, int initialSize,
                        int upKey, int downKey, int leftKey, int rightKey) {
@@ -51,7 +51,7 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
     }
 
     /**
-     * Moves the snake in it's current direction.
+     * Moves the gameengine in it's current direction.
      */
     private void move(){
         body.addFirst(new SnakeBodyEntity(level, position.clone()));
@@ -87,7 +87,7 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
                     position.x = 0;
                 break;
         }
-        moved = true;
+        hasMove = true;
     }
 
     /**
@@ -104,7 +104,7 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
                 case "wall":
                 case "body":
                     alive = false;
-                    Main.game.gameOver();
+                    Main.snakeGame.gameOver();
                     break;
             }
         }
@@ -138,7 +138,7 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
 
     @Override
     public void keyPressed(KeyEvent e){
-        if(moved) {
+        if(hasMove) {
             int inputKeyCode = e.getKeyCode();
             if(inputKeyCode == keys.get("upKey")) {
                 if (direction != Direction.DOWN)
@@ -157,7 +157,7 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
                     direction = Direction.RIGHT;
             }
         }
-        moved = false;
+        hasMove = false;
     }
 
     @Override

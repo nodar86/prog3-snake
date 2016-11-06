@@ -1,13 +1,13 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.Drawable;
-import sch.nodar.snake.Level;
-import sch.nodar.snake.Position;
+import sch.nodar.gameengine.Drawable;
+import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Position;
 
 import java.awt.*;
 
 /**
- * Entity food, the snake can eat this to grow.
+ * Entity food, the gameengine can eat this to grow.
  */
 class FoodEntity extends PositionedEntity implements Drawable {
 

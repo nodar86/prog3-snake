@@ -1,7 +1,7 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.Level;
-import sch.nodar.snake.Tickable;
+import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Tickable;
 
 /**
  * Entity that generates FoodEntities on the given level

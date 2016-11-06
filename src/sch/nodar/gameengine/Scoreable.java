@@ -1,4 +1,4 @@
-package sch.nodar.snake;
+package sch.nodar.gameengine;
 
 public interface Scoreable {
     int getScore();

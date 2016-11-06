@@ -1,13 +1,13 @@
-package sch.nodar.snake.entity;
+package sch.nodar.gameengine.entity;
 
-import sch.nodar.snake.Drawable;
-import sch.nodar.snake.Level;
-import sch.nodar.snake.Position;
+import sch.nodar.gameengine.Drawable;
+import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Position;
 
 import java.awt.*;
 
 /**
- * The body entities of the snake.
+ * The body entities of the gameengine.
  */
 class SnakeBodyEntity extends PositionedEntity implements Drawable {
 
