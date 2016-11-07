@@ -5,6 +5,7 @@ import sch.nodar.gameengine.entity.*;
 import sch.nodar.gameengine.settings.SnakeSettings;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 /**
@@ -20,6 +21,11 @@ public class SnakeGame extends Game {
      */
     public SnakeGame(){
         super();
+        addEntity(new FoodFactoryEntity(level));
+    }
+
+    public void reset(){
+        super.reset();
         level = new Level("whatever", SCREEN_WIDTH, SCREEN_HEIGHT);
         settings = new SnakeSettings();
 
@@ -30,6 +36,15 @@ public class SnakeGame extends Game {
                 KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D));
 
         addEntity(new FoodFactoryEntity(level));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        super.actionPerformed(e);
+        controllableEntities.forEach(controllableEntity -> {
+            if(!((SnakeEntity)controllableEntity).isAlive())
+                timer.stop();
+        });
     }
 
 }

@@ -2,11 +2,16 @@ package sch.nodar.gameengine.entity;
 
 import sch.nodar.gameengine.Drawable;
 import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.panels.EditorPanel;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 public class EditorCaretEntity extends ControllableEntity implements Drawable {
+
+    private String lastFileName;
+    private boolean successful = false;
 
     public EditorCaretEntity(Level level, int upKey, int downKey, int leftKey, int rightKey, int changeKey, int saveKey){
         super(level, level.getFreePosition());
@@ -17,6 +22,14 @@ public class EditorCaretEntity extends ControllableEntity implements Drawable {
         keys.put("rightKey", rightKey);
         keys.put("changeKey", changeKey);
         keys.put("saveKey", saveKey);
+    }
+
+    public String getLastFileName(){
+        return lastFileName;
+    }
+
+    public boolean isSuccessful(){
+        return successful;
     }
 
     @Override
@@ -65,7 +78,10 @@ public class EditorCaretEntity extends ControllableEntity implements Drawable {
                 level.removeEntity(position);
         }
         if(inputKeyCode == keys.get("saveKey")) {
-            level.saveLevel("whatever");
+            String fileName = "whatever";
+            level.saveLevel(fileName);
+            lastFileName = fileName;
+            successful = true;
         }
     }
 }

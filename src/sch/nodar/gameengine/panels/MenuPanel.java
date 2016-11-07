@@ -1,4 +1,6 @@
-package sch.nodar.gameengine;
+package sch.nodar.gameengine.panels;
+
+import sch.nodar.gameengine.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +16,12 @@ public class MenuPanel extends JPanel {
         public void actionPerformed(ActionEvent actionEvent){
             switch (actionEvent.getActionCommand()){
                 case "play":
-                    // TODO This somehow breaks everything. The snakeGame loop runs but the window freezes.
+                    Main.playGame();
                     break;
                 case "highscore":
                     break;
                 case "leveleditor":
+                    Main.editLevel();
                     break;
                 case "exit":
                     System.exit(0);

@@ -2,11 +2,12 @@ package sch.nodar.gameengine;
 
 import sch.nodar.gameengine.game.LevelEditorGame;
 import sch.nodar.gameengine.game.SnakeGame;
+import sch.nodar.gameengine.panels.EditorPanel;
+import sch.nodar.gameengine.panels.MenuPanel;
+import sch.nodar.gameengine.panels.ScoreboardPanel;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static java.lang.Thread.sleep;
 
 /**
  * <h1>Programozás alapjai nagy házi feladat</h1>
@@ -24,10 +25,12 @@ import static java.lang.Thread.sleep;
  */
 public class Main {
 
-    public static SnakeGame snakeGame = new SnakeGame();
-    public static LevelEditorGame levelEditor = new LevelEditorGame();
     private static JFrame mainFrame = new JFrame("Snake");
+    private static SnakeGame snakeGame = new SnakeGame();
+    private static LevelEditorGame levelEditor = new LevelEditorGame();
     private static MenuPanel menuPanel = new MenuPanel();
+    private static ScoreboardPanel scoreboardPanel = new ScoreboardPanel();
+    private static EditorPanel editorPanel = new EditorPanel();
 
     /**
      * The main function constructs a JFrame then adds the snakeGame.
@@ -37,29 +40,41 @@ public class Main {
     public static void main(String[] args) {
         mainFrame.setLayout(new BorderLayout());
 
-//        mainFrame.add(menuPanel, BorderLayout.SOUTH);
+        mainFrame.add(menuPanel, BorderLayout.SOUTH);
+
+        snakeGame.addPanel(scoreboardPanel);
+        levelEditor.addPanel(editorPanel);
+
         mainFrame.pack();
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-
-        playGame();
     }
 
     /**
      * Plays the snakeGame.
      */
-    static void playGame(){
-
-        ScoreboardPanel scoreboardPanel = new ScoreboardPanel();
+    public static void playGame(){
+        mainFrame.remove(levelEditor);
+        mainFrame.remove(editorPanel);
         mainFrame.add(scoreboardPanel, BorderLayout.NORTH);
-
-        snakeGame.addPanel(scoreboardPanel);
         mainFrame.add(snakeGame, BorderLayout.CENTER);
         mainFrame.pack();
-        mainFrame.setVisible(true);
-
         try{
+            snakeGame.reset();
             snakeGame.play();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void editLevel(){
+        mainFrame.remove(snakeGame);
+        mainFrame.remove(scoreboardPanel);
+        mainFrame.add(editorPanel, BorderLayout.NORTH);
+        mainFrame.add(levelEditor, BorderLayout.CENTER);
+        mainFrame.pack();
+        try{
+            levelEditor.play();
         } catch (Exception e){
             e.printStackTrace();
         }

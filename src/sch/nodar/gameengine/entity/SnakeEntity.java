@@ -101,13 +101,17 @@ public class SnakeEntity extends ControllableEntity implements Drawable, Tickabl
                     growCount++;
                     score++;
                     break;
+                case "head":
                 case "wall":
                 case "body":
                     alive = false;
-                    Main.snakeGame.gameOver();
                     break;
             }
         }
+    }
+
+    public boolean isAlive(){
+        return alive;
     }
 
     @Override
