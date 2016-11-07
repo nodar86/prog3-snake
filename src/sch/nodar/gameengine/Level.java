@@ -36,13 +36,13 @@ public class Level {
 
     /**
      * Constructs a level based on a level file.
-     * @param fileName The level file.
+     * @param file The level file.
      * @param screenWidth The width of the containing screen.
      * @param screenHeight The height of the containing screen.
      */
-    public Level(String fileName, int screenWidth, int screenHeight){
+    public Level(File file, int screenWidth, int screenHeight){
         try {
-            JsonObject levelObject = Json.createReader(new FileInputStream(fileName)).readObject();
+            JsonObject levelObject = Json.createReader(new FileInputStream(file)).readObject();
 
             width = levelObject.getInt("width");
             height = levelObject.getInt("height");
@@ -67,9 +67,9 @@ public class Level {
 
     /**
      * Saves the level to given file. It overwrites the file!
-     * @param fileName The level file.
+     * @param file The level file.
      */
-    public void saveLevel(String fileName){
+    public void saveLevel(File file){
         JsonObjectBuilder levelObjectBuilder = Json.createObjectBuilder();
         levelObjectBuilder.add("width", width);
         levelObjectBuilder.add("height", height);
@@ -86,11 +86,10 @@ public class Level {
         levelObjectBuilder.add("data", levelArrayBuilder);
 
         try {
-            File outputFile = new File(System.getProperty("user.dir") + File.separator + fileName);
-            while(!outputFile.createNewFile()){
-                outputFile.delete();
+            while(!file.createNewFile()){
+                file.delete();
             }
-            JsonWriter jsonWriter = Json.createWriter(new FileOutputStream(outputFile));
+            JsonWriter jsonWriter = Json.createWriter(new FileOutputStream(file));
             jsonWriter.writeObject(levelObjectBuilder.build());
         } catch (IOException e){
             e.printStackTrace();

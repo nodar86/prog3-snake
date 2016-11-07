@@ -13,7 +13,7 @@ public class EditorPanel extends JPanel implements Tickable{
 
     public EditorPanel(){
         super(new GridLayout());
-        add(new JLabel("Level editor. Press ESC to save level.", SwingConstants.CENTER));
+        add(new JLabel("WASD to move, SPACE to change, RETURN to save.", SwingConstants.CENTER));
         add(status);
     }
 

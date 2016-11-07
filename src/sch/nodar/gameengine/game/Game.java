@@ -2,6 +2,7 @@ package sch.nodar.gameengine.game;
 
 
 import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Main;
 import sch.nodar.gameengine.Scoreable;
 import sch.nodar.gameengine.panels.ScoreboardPanel;
 import sch.nodar.gameengine.Tickable;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public abstract class Game extends Canvas implements KeyListener, ActionListener {
@@ -33,7 +35,6 @@ public abstract class Game extends Canvas implements KeyListener, ActionListener
     protected javax.swing.Timer timer;
 
     public Game(){
-        reset();
         timer = new javax.swing.Timer(1000, this);
 
         setFocusable(true);
@@ -43,6 +44,18 @@ public abstract class Game extends Canvas implements KeyListener, ActionListener
     }
 
     public void reset(){
+        File levelFile;
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Choose level file to open");
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        if(fileChooser.showOpenDialog(Main.getMainFrame()) == JFileChooser.APPROVE_OPTION){
+            levelFile = fileChooser.getSelectedFile();
+            level = new Level(levelFile, SCREEN_WIDTH, SCREEN_HEIGHT);
+        } else {
+            level = new Level(SCREEN_WIDTH, SCREEN_HEIGHT);
+        }
+
         requestFocusInWindow();
         tickables = new ArrayList<>();
         controllableEntities = new ArrayList<>();

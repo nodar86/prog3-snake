@@ -2,11 +2,14 @@ package sch.nodar.gameengine.entity;
 
 import sch.nodar.gameengine.Drawable;
 import sch.nodar.gameengine.Level;
+import sch.nodar.gameengine.Main;
 import sch.nodar.gameengine.panels.EditorPanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class EditorCaretEntity extends ControllableEntity implements Drawable {
 
@@ -78,10 +81,20 @@ public class EditorCaretEntity extends ControllableEntity implements Drawable {
                 level.removeEntity(position);
         }
         if(inputKeyCode == keys.get("saveKey")) {
-            String fileName = "whatever";
-            level.saveLevel(fileName);
-            lastFileName = fileName;
-            successful = true;
+            File levelFile;
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Choose level file to save to");
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            if(fileChooser.showSaveDialog(Main.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+                levelFile = fileChooser.getSelectedFile();
+                level.saveLevel(levelFile);
+                lastFileName = levelFile.getName();
+                successful = true;
+            } else {
+                successful = false;
+            }
+
         }
     }
 }

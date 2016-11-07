@@ -1,6 +1,5 @@
 package sch.nodar.gameengine.game;
 
-import sch.nodar.gameengine.Level;
 import sch.nodar.gameengine.entity.EditorCaretEntity;
 import sch.nodar.gameengine.panels.EditorPanel;
 import sch.nodar.gameengine.settings.LevelEditorSettings;
@@ -14,9 +13,14 @@ public class LevelEditorGame extends Game {
 
     public LevelEditorGame(){
         super();
-        level = new Level("whatever", SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+
+    @Override
+    public void reset(){
+        super.reset();
+
         settings = new LevelEditorSettings(30);
-        editorCaretEntity = new EditorCaretEntity(level, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_ENTER, KeyEvent.VK_ESCAPE);
+        editorCaretEntity = new EditorCaretEntity(level, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE, KeyEvent.VK_ENTER);
         addEntity(editorCaretEntity);
     }
 

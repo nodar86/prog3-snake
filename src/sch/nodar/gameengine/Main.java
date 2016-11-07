@@ -42,9 +42,6 @@ public class Main {
 
         mainFrame.add(menuPanel, BorderLayout.SOUTH);
 
-        snakeGame.addPanel(scoreboardPanel);
-        levelEditor.addPanel(editorPanel);
-
         mainFrame.pack();
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
@@ -61,6 +58,7 @@ public class Main {
         mainFrame.pack();
         try{
             snakeGame.reset();
+            snakeGame.addPanel(scoreboardPanel);
             snakeGame.play();
         } catch (Exception e){
             e.printStackTrace();
@@ -74,9 +72,15 @@ public class Main {
         mainFrame.add(levelEditor, BorderLayout.CENTER);
         mainFrame.pack();
         try{
+            levelEditor.reset();
+            levelEditor.addPanel(editorPanel);
             levelEditor.play();
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static JFrame getMainFrame(){
+        return mainFrame;
     }
 }

@@ -1,6 +1,5 @@
 package sch.nodar.gameengine.game;
 
-import sch.nodar.gameengine.Level;
 import sch.nodar.gameengine.entity.*;
 import sch.nodar.gameengine.settings.SnakeSettings;
 
@@ -21,12 +20,11 @@ public class SnakeGame extends Game {
      */
     public SnakeGame(){
         super();
-        addEntity(new FoodFactoryEntity(level));
     }
 
     public void reset(){
         super.reset();
-        level = new Level("whatever", SCREEN_WIDTH, SCREEN_HEIGHT);
+
         settings = new SnakeSettings();
 
         addEntity(new SnakeEntity(level, Color.RED, SNAKE_INITIAL_SIZE,
