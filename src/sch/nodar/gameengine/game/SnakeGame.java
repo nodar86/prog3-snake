@@ -31,10 +31,14 @@ public class SnakeGame extends Game {
 
         settings = new SnakeSettings();
 
-//        addEntity(new SnakeEntity(level, Color.RED, SNAKE_INITIAL_SIZE,
-//                KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT));
+        Object[] options = {"One", "Two"};
+        int snakeNumber = JOptionPane.showOptionDialog(Main.getMainFrame(), "One or two player mode?", "Game mode", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION, null, options, options[0]);
 
-        addEntity(new SnakeEntity(level, Color.GREEN, SNAKE_INITIAL_SIZE,
+        if(snakeNumber > 0)
+            addEntity(new SnakeEntity(level, Color.GREEN, SNAKE_INITIAL_SIZE,
+                KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT));
+
+        addEntity(new SnakeEntity(level, Color.RED, SNAKE_INITIAL_SIZE,
                 KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D));
 
         addEntity(new FoodFactoryEntity(level));
