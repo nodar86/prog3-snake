@@ -2,6 +2,8 @@ package sch.nodar.gameengine;
 
 import sch.nodar.gameengine.game.LevelEditorGame;
 import sch.nodar.gameengine.game.SnakeGame;
+import sch.nodar.gameengine.highscore.Highscore;
+import sch.nodar.gameengine.highscore.Highscores;
 import sch.nodar.gameengine.panels.EditorPanel;
 import sch.nodar.gameengine.panels.MenuPanel;
 import sch.nodar.gameengine.panels.ScoreboardPanel;
@@ -31,6 +33,7 @@ public class Main {
     private static MenuPanel menuPanel = new MenuPanel();
     private static ScoreboardPanel scoreboardPanel = new ScoreboardPanel();
     private static EditorPanel editorPanel = new EditorPanel();
+    private static Highscores highscores = new Highscores();
 
     /**
      * The main function constructs a JFrame then adds the snakeGame.
@@ -51,10 +54,10 @@ public class Main {
      * Plays the snakeGame.
      */
     public static void playGame(){
-        mainFrame.remove(levelEditor);
-        mainFrame.remove(editorPanel);
+        mainFrame.getContentPane().removeAll();
         mainFrame.add(scoreboardPanel, BorderLayout.NORTH);
         mainFrame.add(snakeGame, BorderLayout.CENTER);
+        mainFrame.add(menuPanel, BorderLayout.SOUTH);
         mainFrame.pack();
         try{
             snakeGame.reset();
@@ -66,10 +69,10 @@ public class Main {
     }
 
     public static void editLevel(){
-        mainFrame.remove(snakeGame);
-        mainFrame.remove(scoreboardPanel);
+        mainFrame.getContentPane().removeAll();
         mainFrame.add(editorPanel, BorderLayout.NORTH);
         mainFrame.add(levelEditor, BorderLayout.CENTER);
+        mainFrame.add(menuPanel, BorderLayout.SOUTH);
         mainFrame.pack();
         try{
             levelEditor.reset();
@@ -80,7 +83,19 @@ public class Main {
         }
     }
 
+    public static void showHighscores(){
+        mainFrame.getContentPane().removeAll();
+        JTable jTable = new JTable(highscores);
+        mainFrame.add(jTable, BorderLayout.CENTER);
+        mainFrame.add(menuPanel, BorderLayout.SOUTH);
+        mainFrame.pack();
+    }
+
     public static JFrame getMainFrame(){
         return mainFrame;
+    }
+
+    public static Highscores getHighscores(){
+        return highscores;
     }
 }

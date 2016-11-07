@@ -19,6 +19,7 @@ public class MenuPanel extends JPanel {
                     Main.playGame();
                     break;
                 case "highscore":
+                    Main.showHighscores();
                     break;
                 case "leveleditor":
                     Main.editLevel();

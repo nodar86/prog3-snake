@@ -86,9 +86,6 @@ public class Level {
         levelObjectBuilder.add("data", levelArrayBuilder);
 
         try {
-            while(!file.createNewFile()){
-                file.delete();
-            }
             JsonWriter jsonWriter = Json.createWriter(new FileOutputStream(file));
             jsonWriter.writeObject(levelObjectBuilder.build());
         } catch (IOException e){
